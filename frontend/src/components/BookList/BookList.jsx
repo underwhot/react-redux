@@ -12,7 +12,7 @@ export const BookList = () => {
       ) : (
         <ul>
           {books.map((book, i) => (
-            <li key={i}>
+            <li key={book.id}>
               <div className="book-info">
                 {++i}. {book.titleValue} by <strong>{book.authorValue}</strong>
               </div>
