@@ -5,6 +5,7 @@ import { deleteBook, toggleFavourite } from '../../redux/books/actionCreators';
 import {
   selectTitleFilter,
   selectAuthorFilter,
+  selectOnlyFavouriteFilter,
 } from '../../redux/slices/filterSlice';
 
 import './BookList.css';
@@ -13,7 +14,7 @@ export const BookList = () => {
   const books = useSelector((state) => state.books);
   const filterTitle = useSelector(selectTitleFilter);
   const filterAuthor = useSelector(selectAuthorFilter);
-
+  const onlyFavouriteFilter = useSelector(selectOnlyFavouriteFilter);
   const dispatch = useDispatch();
 
   const toggleFavouriteHadler = (id) => {
@@ -26,7 +27,8 @@ export const BookList = () => {
     )
     .filter((book) =>
       book.authorValue.toLowerCase().includes(filterAuthor.trim().toLowerCase())
-    );
+    )
+    .filter((book) => (onlyFavouriteFilter ? book.isFavourite : true));
 
   return (
     <div className="app-block book-list">
