@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { addBook } from '../../redux/books/actionCreators';
 
+import booksData from '../../data/books.json';
+
 import './BookForm.css';
 
 export const BookForm = () => {
@@ -26,6 +28,19 @@ export const BookForm = () => {
       setTitleValue('');
       setAuthorValue('');
     }
+  };
+
+  const addRandomBookHandler = () => {
+    const randomIndex = Math.floor(Math.random() * booksData.length);
+    const randomBook = booksData[randomIndex];
+
+    const randomBookWithID = {
+      titleValue: randomBook.title,
+      authorValue: randomBook.author,
+      id: uuidv4(),
+    };
+
+    dispatch(addBook(randomBookWithID));
   };
 
   return (
@@ -53,6 +68,9 @@ export const BookForm = () => {
           />
         </div>
         <button type="submit">Add Book</button>
+        <button type="button" onClick={addRandomBookHandler}>
+          Add Random
+        </button>
       </form>
     </div>
   );
