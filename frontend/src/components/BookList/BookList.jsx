@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { BsBookmarkStarFill, BsBookmarkStar } from 'react-icons/bs';
 
-import { deleteBook, toggleFavourite } from '../../redux/books/actionCreators';
+import {
+  setDeleteBook,
+  setToggleFavourite,
+  selectBooks,
+} from '../../redux/slices/booksSlice';
 import {
   selectTitleFilter,
   selectAuthorFilter,
@@ -11,14 +15,14 @@ import {
 import './BookList.css';
 
 export const BookList = () => {
-  const books = useSelector((state) => state.books);
+  const books = useSelector(selectBooks);
   const filterTitle = useSelector(selectTitleFilter);
   const filterAuthor = useSelector(selectAuthorFilter);
   const onlyFavouriteFilter = useSelector(selectOnlyFavouriteFilter);
   const dispatch = useDispatch();
 
   const toggleFavouriteHadler = (id) => {
-    dispatch(toggleFavourite(id));
+    dispatch(setToggleFavourite(id));
   };
 
   const filtredBooks = books
@@ -72,7 +76,7 @@ export const BookList = () => {
                 </span>
 
                 <button
-                  onClick={() => dispatch(deleteBook(book.id))}
+                  onClick={() => dispatch(setDeleteBook(book.id))}
                   type="button"
                 >
                   Delete
