@@ -39,7 +39,7 @@ export const BookForm = () => {
   };
 
   const addRandomBookViaAPIHandler = () => {
-    dispatch(fetchBook());
+    dispatch(fetchBook('https://654fb2ee358230d8f0cda05a.mockapi.io/books'));
   };
 
   return (
