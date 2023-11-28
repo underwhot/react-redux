@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 
 import { setAddBook, fetchBook } from '../../redux/slices/booksSlice';
 import { createBookWithID } from '../../utils/createBookWithID';
+import { setError } from '../../redux/slices/errorSlice';
 
 import booksData from '../../data/books.json';
 
@@ -26,6 +26,8 @@ export const BookForm = () => {
 
       setTitleValue('');
       setAuthorValue('');
+    } else {
+      dispatch(setError('Title and author is empty!'));
     }
   };
 
@@ -68,7 +70,7 @@ export const BookForm = () => {
         <button type="button" onClick={addRandomBookHandler}>
           Add Random
         </button>
-        <button type="submit" onClick={addRandomBookViaAPIHandler}>
+        <button type="button" onClick={addRandomBookViaAPIHandler}>
           Add Random via API
         </button>
       </form>

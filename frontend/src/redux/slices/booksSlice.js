@@ -6,7 +6,7 @@ const initialState = [];
 
 export const fetchBook = createAsyncThunk('books/fetchBook', async () => {
   const res = await axios.get(
-    'https://654fb2ee358230d8f0cda05a.mockapi.io/book1s'
+    'https://654fb2ee358230d8f0cda05a.mockapi.io/books1'
   );
   const randomIndex = Math.floor(Math.random() * res.data.length);
   const randomBook = res.data[randomIndex];
