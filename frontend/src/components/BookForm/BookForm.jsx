@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setAddBook, fetchBook } from '../../redux/slices/booksSlice';
+import {
+  setAddBook,
+  fetchBook,
+  selectIsLoadingViaAPI,
+} from '../../redux/slices/booksSlice';
 import { createBookWithID } from '../../utils/createBookWithID';
 import { setError } from '../../redux/slices/errorSlice';
 import { FaSpinner } from 'react-icons/fa';
@@ -13,8 +17,8 @@ import './BookForm.css';
 export const BookForm = () => {
   const [titleValue, setTitleValue] = useState('');
   const [authorValue, setAuthorValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoadingViaAPI);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,15 +44,8 @@ export const BookForm = () => {
     dispatch(setAddBook(createBookWithID(randomBook, 'random')));
   };
 
-  const addRandomBookViaAPIHandler = async () => {
-    try {
-      setIsLoading(true);
-      await dispatch(
-        fetchBook('https://654fb2ee358230d8f0cda05a.mockapi.io/books')
-      );
-    } finally {
-      setIsLoading(false);
-    }
+  const addRandomBookViaAPIHandler = () => {
+    dispatch(fetchBook('https://654fb2ee358230d8f0cda05a.mockapi.io/books'));
   };
 
   return (
